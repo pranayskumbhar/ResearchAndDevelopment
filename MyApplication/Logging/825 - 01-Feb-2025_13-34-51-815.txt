@@ -1,0 +1,24 @@
+-----------------------------------------------------------------------------------
+Timestamp: 01-02-2025 13:34:51
+Message: Hellow World
+Controller: Home
+File: D:\Pranay\My Work Easy\MyApplication\MyApplication\Controllers\HomeController.cs
+Method: jsfhdgajs
+Line Number: 50
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+Timestamp: 01-02-2025 13:34:51
+Message: Hi
+Controller: Home
+File: D:\Pranay\My Work Easy\MyApplication\MyApplication\Controllers\HomeController.cs
+Method: jsfhdgajs
+Line Number: 51
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+Timestamp: 01-02-2025 13:34:51
+Message: Above blankskudyaksldh a;sky
+Controller: Home
+File: D:\Pranay\My Work Easy\MyApplication\MyApplication\Controllers\HomeController.cs
+Method: jsfhdgajs
+Line Number: 52
+-----------------------------------------------------------------------------------

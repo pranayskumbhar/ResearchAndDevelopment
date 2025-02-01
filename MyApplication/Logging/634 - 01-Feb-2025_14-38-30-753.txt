@@ -1,0 +1,24 @@
+-----------------------------------------------------------------------------------
+Timestamp: 01-02-2025 14:38:30
+Message: Hellow World
+Controller: Home
+File: D:\Pranay\My Work Easy\MyApplication\MyApplication\Controllers\HomeController.cs
+Method: Index
+Line Number: 25
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+Timestamp: 01-02-2025 14:38:30
+Message: Hi
+Controller: Home
+File: D:\Pranay\My Work Easy\MyApplication\MyApplication\Controllers\HomeController.cs
+Method: Index
+Line Number: 26
+-----------------------------------------------------------------------------------
+-----------------------------------------------------------------------------------
+Timestamp: 01-02-2025 14:38:30
+Message: Above blankskudyaksldh a;sky
+Controller: Home
+File: D:\Pranay\My Work Easy\MyApplication\MyApplication\Controllers\HomeController.cs
+Method: Index
+Line Number: 27
+-----------------------------------------------------------------------------------
