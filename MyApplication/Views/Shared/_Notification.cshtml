@@ -1,0 +1,13 @@
+﻿<script src="~/js/toastr.js"></script>
+@{
+    var notification = TempData["toast"] as string;
+}
+
+
+@if (!string.IsNullOrEmpty(@notification))
+{
+    <script>
+        SuccessToastr('@notification');
+
+    </script>
+}
