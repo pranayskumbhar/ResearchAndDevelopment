@@ -1,11 +1,16 @@
-﻿using OfficeOpenXml;
-using OfficeOpenXml.Style;
+﻿using OfficeOpenXml.Style;
+using OfficeOpenXml;
+using System;
+using System.Collections.Generic;
 using System.Diagnostics;
+using System.Linq;
 using System.Text;
-
+using System.Threading.Tasks;
+using iText.Commons.Utils;
+ 
 namespace Repository
 {
-    public static class Logger
+    public static class LogException
     {
         private static string fileName;
         private static string logDirectory;
@@ -14,10 +19,10 @@ namespace Repository
         private static string csvFilePath;
 
         #region Constructor
-        static Logger()
+        static LogException()
         {
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
-            logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Logging");
+            logDirectory = Path.Combine(Directory.GetCurrentDirectory(), "Exception Logging");
             if (!Directory.Exists(logDirectory))
             {
                 Directory.CreateDirectory(logDirectory);
@@ -27,30 +32,19 @@ namespace Repository
         #endregion
 
         #region LogIntoText
-        public static void LogIntoText(params string[] messages)
+        public static void LogIntoText(string controllerName, string methodName, int? lineNumber, string callerFilePath, Exception ex)
         {
             if (!Directory.Exists(Path.Combine(logDirectory, "Text")))
             {
                 Directory.CreateDirectory(Path.Combine(logDirectory, "Text"));
             }
             textFilePath = Path.Combine(Path.Combine(logDirectory, "Text"), $"{fileName}.txt");
-            #region Fetch All Information Of Caller Method
-            var stackTrace = new StackTrace(true);
-            // Frame 1 is the caller of LogIntoText
-            var callingMethod = stackTrace.GetFrame(1).GetMethod();
-            var methodName = callingMethod.Name;
-            var controllerName = callingMethod.DeclaringType?.Name; // Typically ends with "Controller"
-
-            var frame = stackTrace.GetFrame(1);    // 1 = caller of LogIntoText
-            var lineNumber = frame.GetFileLineNumber();
-            var callerFilePath = frame.GetFileName(); // full path to the file
-            #endregion
 
             using (var writer = new StreamWriter(textFilePath, true))
             {
                 // Log format: Timestamp | Message | Controller | File | Method | Line Number
                 writer.WriteLine("----------------------------------------------------------------------------------------------------------------------------------------------------------------------");
-                writer.WriteLine($"Message: {string.Join(",", messages)}");
+                writer.WriteLine($"Message: {ex.ToString()}");
                 writer.WriteLine($"Controller: {controllerName ?? "Unknown"}");
                 writer.WriteLine($"Method: {methodName}");
                 writer.WriteLine($"Line Number: {lineNumber}");
@@ -62,7 +56,7 @@ namespace Repository
         #endregion
 
         #region LogIntoExcel
-        public static void LogIntoExcel(params string[] messages)
+        public static void LogIntoExcel(string controllerName, string methodName, int? lineNumber, string callerFilePath, Exception ex)
         {
             if (!Directory.Exists(Path.Combine(logDirectory, "Excel")))
             {
@@ -71,15 +65,6 @@ namespace Repository
             excelFilePath = Path.Combine(Path.Combine(logDirectory, "Excel"), $"{fileName}.xlsx");
 
 
-            #region Fetch All Information Of Caller Method
-            var stackTrace = new StackTrace(true);
-            var callingMethod = stackTrace.GetFrame(1).GetMethod();
-            var methodName = callingMethod.Name;
-            var controllerName = callingMethod.DeclaringType?.Name;
-            var frame = stackTrace.GetFrame(1);
-            var lineNumber = frame.GetFileLineNumber();
-            var callerFilePath = frame.GetFileName();
-            #endregion
 
             FileInfo fileInfo = new FileInfo(excelFilePath);
             ExcelPackage.LicenseContext = LicenseContext.NonCommercial;
@@ -117,7 +102,7 @@ namespace Repository
                 int nextRow = worksheet.Dimension?.End.Row + 1 ?? 2;
 
                 worksheet.Cells[nextRow, 1].Value = DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss");
-                worksheet.Cells[nextRow, 2].Value = string.Join(", ", messages);
+                worksheet.Cells[nextRow, 2].Value = string.Join(", ", ex.ToString());
                 worksheet.Cells[nextRow, 3].Value = controllerName ?? "Unknown";
                 worksheet.Cells[nextRow, 4].Value = methodName;
                 worksheet.Cells[nextRow, 5].Value = lineNumber;
@@ -129,7 +114,7 @@ namespace Repository
         #endregion
 
         #region LogIntoCsv
-        public static void LogIntoCsv(params string[] messages)
+        public static void LogIntoCsv(string controllerName, string methodName, int? lineNumber, string callerFilePath, Exception ex)
         {
             if (!Directory.Exists(Path.Combine(logDirectory, "Csv")))
             {
@@ -137,15 +122,6 @@ namespace Repository
             }
             csvFilePath = Path.Combine(Path.Combine(logDirectory, "Csv"), $"{fileName}.csv");
 
-            #region Fetch All Information Of Caller Method
-            var stackTrace = new StackTrace(true);
-            var callingMethod = stackTrace.GetFrame(1).GetMethod();
-            var methodName = callingMethod.Name;
-            var controllerName = callingMethod.DeclaringType?.Name;
-            var frame = stackTrace.GetFrame(1);
-            var lineNumber = frame.GetFileLineNumber();
-            var callerFilePath = frame.GetFileName();
-            #endregion
 
             bool fileExists = File.Exists(csvFilePath);
 
@@ -159,7 +135,7 @@ namespace Repository
 
                 var csvRow = string.Format("\"{0}\",\"{1}\",\"{2}\",\"{3}\",\"{4}\",\"{5}\"",
                     DateTime.Now.ToString("yyyy-MM-dd HH:mm:ss"),
-                    string.Join(", ", messages).Replace("\"", "\"\""), // escape quotes
+                    string.Join(", ", ex.ToString()).Replace("\"", "\"\""), // escape quotes
                     controllerName ?? "Unknown",
                     methodName,
                     lineNumber,
@@ -171,7 +147,4 @@ namespace Repository
         }
         #endregion
     }
-
-
-
 }
