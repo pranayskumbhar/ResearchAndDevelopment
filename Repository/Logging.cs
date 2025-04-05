@@ -12,6 +12,12 @@ namespace Repository
     using System.Text;
     using static System.Runtime.InteropServices.JavaScript.JSType;
 
+
+
+    /*
+     Deprecated
+     */
+
     public sealed class TextLogWriter
     {
         private readonly string filePath;
@@ -167,7 +173,7 @@ namespace Repository
 
 
 
-    
+
 
 
 
