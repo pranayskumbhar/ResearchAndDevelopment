@@ -7,11 +7,24 @@ namespace ResearchAndDevelopment.Controllers
     {
         public IActionResult Index()
         {
-            TextLogWriter log = new TextLogWriter();
-            log.Log("Hellow World");
-            log.Log("Hi");
-            log.Log("Above blankskudyaksldh a;sky");
 
+            Logger.LogIntoText();
+            Logger.LogIntoText("Hi ", "Bro", "Whats", "Up", "Lets", "Go", "We", "conqueror");
+            Logger.LogIntoText("Hare Krishna ", "Radhe Radhe");
+            Logger.LogIntoText("Ganapti Bappa Morya ", "Om namah Shivay");
+ 
+            Logger.LogIntoExcel();
+            Logger.LogIntoExcel("Hi ", "Bro", "Whats", "Up", "Lets", "Go", "We", "conqueror");
+            Logger.LogIntoExcel("Hare Krishna ", "Radhe Radhe");
+            Logger.LogIntoExcel("Ganapti Bappa Morya ", "Om namah Shivay");
+ 
+            
+            Logger.LogIntoCsv();
+            Logger.LogIntoCsv("Hi ", "Bro", "Whats", "Up", "Lets", "Go", "We", "conqueror");
+            Logger.LogIntoCsv("Hare Krishna ", "Radhe Radhe");
+            Logger.LogIntoCsv("Ganapti Bappa Morya ", "Om namah Shivay");
+ 
+              
             return View();
         }
     }

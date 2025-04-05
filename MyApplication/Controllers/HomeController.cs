@@ -21,10 +21,10 @@ namespace ResearchAndDevelopment.Controllers
         {
 
 
-            TextLogWriter log = new TextLogWriter();
-            log.Log("Hellow World");
-            log.Log("Hi");
-            log.Log("Above blankskudyaksldh a;sky");
+            //TextLogWriter log = new TextLogWriter();
+            //log.Log("Hellow World");
+            //log.Log("Hi");
+            //log.Log("Above blankskudyaksldh a;sky");
 
 
             //ExcelLogWriter log1 = new ExcelLogWriter();
@@ -46,10 +46,10 @@ namespace ResearchAndDevelopment.Controllers
         void jsfhdgajs()
         {
 
-            TextLogWriter log = new TextLogWriter();
-            log.Log("Hellow World");
-            log.Log("Hi");
-            log.Log("Above blankskudyaksldh a;sky");
+            //TextLogWriter log = new TextLogWriter();
+            //log.Log("Hellow World");
+            //log.Log("Hi");
+            //log.Log("Above blankskudyaksldh a;sky");
 
         }
         public IActionResult Privacy()
